@@ -11,6 +11,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<!-- fond bleu derrière la barre d'état, marge haute gérée par env(safe-area-inset-top) -->
 <meta name="apple-mobile-web-app-title" content="Grèce">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -29,7 +30,7 @@
   --mono:'Space Mono',ui-monospace,'SF Mono',Menlo,monospace;
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;background:var(--flag)}
 body{
   margin:0;background:var(--marble);color:var(--basalt);
   font-family:var(--disp);font-weight:500;line-height:1.45;
@@ -54,7 +55,7 @@ a{color:inherit}
 .status .cd{font-family:var(--mono);font-weight:700;font-size:22px;letter-spacing:-.02em;color:var(--flag)}
 .status .cx{font-size:13px;letter-spacing:-.01em}
 
-nav{position:sticky;top:0;z-index:10;background:var(--marble);border-bottom:1px solid var(--rule);display:flex;overflow-x:auto;scrollbar-width:none}
+nav{position:sticky;top:env(safe-area-inset-top);z-index:10;background:var(--marble);border-bottom:1px solid var(--rule);display:flex;overflow-x:auto;scrollbar-width:none}
 nav::-webkit-scrollbar{display:none}
 nav a{flex:1 0 auto;text-align:center;padding:12px 16px;font-family:var(--mono);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;text-decoration:none;color:var(--basalt-soft);border-right:1px solid var(--rule);white-space:nowrap}
 nav a:last-child{border-right:0}
@@ -94,6 +95,66 @@ section{padding:26px 20px 8px;max-width:660px;margin:0 auto}
 .leg .pt.r{text-align:right}
 .leg .mid{font-family:var(--mono);font-size:9px;letter-spacing:.1em;color:var(--basalt-soft);text-align:center;min-width:54px}
 .leg .mid .bar{height:1px;background:var(--rule);margin:4px 0}
+
+/* ---- météo ---- */
+.wxhead{
+  display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;
+  font-family:var(--mono);font-size:10px;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--basalt-soft);margin-bottom:14px;
+}
+.wxhead button{
+  margin-left:auto;background:none;border:0;padding:0;font:inherit;
+  color:var(--flag);cursor:pointer;border-bottom:1px solid var(--flag);
+}
+.wxhead button:focus-visible{outline:2px solid var(--flag);outline-offset:2px}
+
+.wxrow{
+  border-top:1px solid var(--rule);padding:12px 0;
+  display:grid;grid-template-columns:46px 1fr auto;gap:12px;align-items:center;
+}
+.wxrow:last-of-type{border-bottom:1px solid var(--rule)}
+.wxrow .wd{font-family:var(--mono);font-size:10.5px;color:var(--basalt-soft);line-height:1.25}
+.wxrow .wd b{display:block;font-size:17px;color:var(--basalt);letter-spacing:-.03em}
+.wxrow .wl{font-size:14px;font-weight:700;letter-spacing:-.02em}
+.wxrow .wc{font-family:var(--mono);font-size:11px;color:var(--basalt-soft);margin-top:1px}
+.wxrow .wt{font-family:var(--mono);text-align:right;line-height:1.3}
+.wxrow .wt b{font-size:19px;letter-spacing:-.03em}
+.wxrow .wt span{display:block;font-size:10px;color:var(--basalt-soft)}
+.wxrow.today{background:var(--marble-hi);box-shadow:inset 3px 0 0 var(--flag);padding-left:11px;margin-left:-14px}
+
+.wxnote{font-size:13px;color:var(--basalt-soft);margin:16px 0 0}
+.wxnote strong{color:var(--basalt)}
+.wxempty{
+  border:1px dashed var(--rule);padding:18px;text-align:center;
+  font-size:13.5px;color:var(--basalt-soft);
+}
+.wxcross{margin-top:22px}
+.wxcross h4{margin:0 0 4px;font-size:14px;font-weight:700;letter-spacing:-.02em}
+.wxcross .sea{margin-top:0;border-top:0;padding-top:0}
+.wxcross .item{border-top:1px solid var(--rule);padding:13px 0}
+
+.day{position:relative}
+.wx{
+  position:absolute;top:15px;right:0;text-align:right;
+  font-family:var(--mono);font-size:11px;color:var(--basalt-soft);line-height:1.35;
+}
+.wx b{display:block;font-size:15px;color:var(--basalt);letter-spacing:-.03em}
+.wx .cond{display:block;font-size:9.5px;letter-spacing:.04em}
+.day .place{padding-right:74px}
+
+.sea{margin-top:12px;border-top:1px solid var(--rule);padding-top:11px;font-family:var(--mono);font-size:11.5px}
+.sea .verdict{font-weight:700;font-size:13px;letter-spacing:-.01em;display:block;margin-bottom:3px}
+.sea .detail{color:var(--basalt-soft)}
+.sea.ok .verdict{color:#1B6B3A}
+.sea.warn .verdict{color:#A85B00}
+.sea.bad .verdict{color:#A6231B}
+.sea.na .verdict{color:var(--basalt-soft);font-weight:500}
+
+.heat{
+  border-left:3px solid #A85B00;background:#FFF6E8;
+  padding:10px 12px;margin:0 0 10px;font-size:13.5px;color:var(--basalt);
+}
+.heat b{color:#A85B00}
 
 /* ---- repères ---- */
 .chips{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:16px}
@@ -166,13 +227,14 @@ footer{padding:24px 20px;text-align:center;font-family:var(--mono);font-size:10p
   <a href="#jours">Jours</a>
   <a href="#hotels">Hôtels</a>
   <a href="#transports">Transports</a>
+  <a href="#meteo">Météo</a>
   <a href="#reperes">Repères</a>
 </nav>
 
 <section id="jours">
   <div class="shead"><h2>Le séjour</h2><div class="line"></div></div>
 
-  <div class="day" data-date="2026-08-19">
+  <div class="day" data-date="2026-08-19" data-loc="athenes">
     <div class="dt"><b>19</b>mer</div>
     <div>
       <div class="place">Athènes</div>
@@ -185,7 +247,7 @@ footer{padding:24px 20px;text-align:center;font-family:var(--mono);font-size:10p
     </div>
   </div>
 
-  <div class="day" data-date="2026-08-20">
+  <div class="day" data-date="2026-08-20" data-loc="athenes">
     <div class="dt"><b>20</b>jeu</div>
     <div>
       <div class="place">Athènes</div>
@@ -194,7 +256,7 @@ footer{padding:24px 20px;text-align:center;font-family:var(--mono);font-size:10p
     </div>
   </div>
 
-  <div class="day" data-date="2026-08-21">
+  <div class="day" data-date="2026-08-21" data-loc="naxos">
     <div class="dt"><b>21</b>ven</div>
     <div>
       <div class="place">Athènes → Naxos</div>
@@ -209,22 +271,22 @@ footer{padding:24px 20px;text-align:center;font-family:var(--mono);font-size:10p
     </div>
   </div>
 
-  <div class="day" data-date="2026-08-22">
+  <div class="day" data-date="2026-08-22" data-loc="naxos">
     <div class="dt"><b>22</b>sam</div>
     <div><div class="place">Naxos</div><div class="stay">Aesthete Naxos Suites</div></div>
   </div>
 
-  <div class="day" data-date="2026-08-23">
+  <div class="day" data-date="2026-08-23" data-loc="naxos">
     <div class="dt"><b>23</b>dim</div>
     <div><div class="place">Naxos</div><div class="stay">Aesthete Naxos Suites</div></div>
   </div>
 
-  <div class="day" data-date="2026-08-24">
+  <div class="day" data-date="2026-08-24" data-loc="naxos">
     <div class="dt"><b>24</b>lun</div>
     <div><div class="place">Naxos</div><div class="stay">Aesthete Naxos Suites</div></div>
   </div>
 
-  <div class="day" data-date="2026-08-25">
+  <div class="day" data-date="2026-08-25" data-loc="naxos">
     <div class="dt"><b>25</b>mar</div>
     <div>
       <div class="place">Naxos → Athènes</div>
@@ -238,7 +300,7 @@ footer{padding:24px 20px;text-align:center;font-family:var(--mono);font-size:10p
     </div>
   </div>
 
-  <div class="day" data-date="2026-08-26">
+  <div class="day" data-date="2026-08-26" data-loc="athenes">
     <div class="dt"><b>26</b>mer</div>
     <div>
       <div class="place">Athènes → Zurich</div>
@@ -308,6 +370,7 @@ footer{padding:24px 20px;text-align:center;font-family:var(--mono);font-size:10p
 
   <div class="card">
     <div class="tag">Ven 21 août · SeaJets Champions League Jet 1</div>
+    <div class="ferry-slot" data-day="2026-08-21" data-h0="8" data-h1="12"></div>
     <div class="leg">
       <div class="pt"><span class="h">08:30</span><span class="n">Le Pirée</span></div>
       <div class="mid">3H15<div class="bar"></div>FERRY</div>
@@ -318,6 +381,7 @@ footer{padding:24px 20px;text-align:center;font-family:var(--mono);font-size:10p
 
   <div class="card">
     <div class="tag">Mar 25 août · SeaJets Champions League Jet 1</div>
+    <div class="ferry-slot" data-day="2026-08-25" data-h0="14" data-h1="18"></div>
     <div class="leg">
       <div class="pt"><span class="h">14:50</span><span class="n">Naxos</span></div>
       <div class="mid">3H25<div class="bar"></div>FERRY</div>
@@ -334,6 +398,13 @@ footer{padding:24px 20px;text-align:center;font-family:var(--mono);font-size:10p
       <div class="pt r"><span class="h">18:05</span><span class="n">Zurich ZRH</span></div>
     </div>
     <p class="meta">Métro depuis Monastiraki ou Thissio, changement à Monastiraki pour la ligne 3.</p>
+  </div>
+</section>
+
+<section id="meteo">
+  <div class="shead"><h2>Météo du séjour</h2><div class="line"></div></div>
+  <div id="meteoBody">
+    <div class="wxempty">Prévisions en cours de chargement.</div>
   </div>
 </section>
 
@@ -380,6 +451,7 @@ footer{padding:24px 20px;text-align:center;font-family:var(--mono);font-size:10p
     <summary><span class="kicker">Athènes · le risque de la journée</span>La fermeture de midi</summary>
     <div class="body">
       <p class="pin">En cas de canicule, le ministère de la Culture ferme <a class="geo" href="https://www.google.com/maps/search/?api=1&query=Acropolis%20of%20Athens" target="_blank" rel="noopener">l’Acropole</a> et les sites archéologiques <strong>de 12h à 17h</strong>. C’est arrivé en juin et juillet 2024, en juillet 2025, et de nouveau fin juillet 2026.</p>
+      <div class="heat-slot" id="heatSlot"></div>
       <p>Il n’existe pas de seuil publié : la décision se prend au jour le jour et n’est connue que le matin même. Un créneau à 08:00 met à l’abri de ce risque en plus d’éviter la chaleur.</p>
       <p>Août à Athènes tourne autour de 34 °C de maximale, et il n’y a aucune ombre sur le rocher. Numéro d’urgence en Grèce : <strong>112</strong>.</p>
     </div>
@@ -562,6 +634,276 @@ footer{padding:24px 20px;text-align:center;font-family:var(--mono);font-size:10p
       });
     });
   });
+
+  // ------------------------------------------------------------------
+  //  Météo — Open-Meteo, sans clé. Trois points : Athènes, Naxos,
+  //  et un point en mer à mi-parcours pour juger la traversée.
+  // ------------------------------------------------------------------
+  var PTS = {
+    athenes: [37.9838, 23.7275],
+    naxos:   [37.1036, 25.3765],
+    mer:     [37.4500, 24.5500]
+  };
+  var ORDER = ['athenes','naxos','mer'];
+  var KEY = 'grece-wx-v1';
+  var TTL = 2 * 3600 * 1000;
+
+  function bft(kmh){
+    var s = [1,6,12,20,29,39,50,62,75,89,103,118];
+    for (var i = 0; i < s.length; i++) if (kmh < s[i]) return i;
+    return 12;
+  }
+
+  var CODES = {
+    0:'dégagé', 1:'peu nuageux', 2:'nuages épars', 3:'couvert',
+    45:'brume', 48:'brume', 51:'bruine', 53:'bruine', 55:'bruine',
+    61:'pluie', 63:'pluie', 65:'forte pluie', 80:'averses', 81:'averses',
+    82:'fortes averses', 95:'orage', 96:'orage', 99:'orage'
+  };
+
+  function hhmm(iso){ return iso ? iso.slice(11,16) : ''; }
+
+  function urls(){
+    var la = ORDER.map(function(k){ return PTS[k][0]; }).join(',');
+    var lo = ORDER.map(function(k){ return PTS[k][1]; }).join(',');
+    return {
+      air: 'https://api.open-meteo.com/v1/forecast'
+         + '?latitude=' + la + '&longitude=' + lo
+         + '&daily=weather_code,temperature_2m_max,temperature_2m_min,'
+         + 'wind_speed_10m_max,wind_gusts_10m_max,precipitation_probability_max,sunset'
+         + '&hourly=wind_speed_10m,wind_gusts_10m'
+         + '&timezone=Europe%2FAthens&forecast_days=16',
+      sea: 'https://marine-api.open-meteo.com/v1/marine'
+         + '?latitude=' + PTS.mer[0] + '&longitude=' + PTS.mer[1]
+         + '&hourly=wave_height&timezone=Europe%2FAthens'
+    };
+  }
+
+  function load(){
+    try { var c = JSON.parse(localStorage.getItem(KEY)); return c && c.air ? c : null; }
+    catch(e){ return null; }
+  }
+
+  function fetchAll(){
+    if (typeof fetch !== 'function') return Promise.reject(new Error('no fetch'));
+    var u = urls();
+    var air = fetch(u.air).then(function(r){ return r.json(); });
+    var sea = fetch(u.sea).then(function(r){ return r.json(); }).catch(function(){ return null; });
+    return Promise.all([air, sea]).then(function(res){
+      var data = { at: Date.now(), air: Array.isArray(res[0]) ? res[0] : [res[0]], sea: res[1] };
+      try { localStorage.setItem(KEY, JSON.stringify(data)); } catch(e){}
+      return data;
+    });
+  }
+
+  function maxBetween(times, vals, day, h0, h1){
+    var m = null;
+    for (var i = 0; i < times.length; i++){
+      if (times[i].slice(0,10) !== day) continue;
+      var hr = parseInt(times[i].slice(11,13), 10);
+      if (hr < h0 || hr > h1) continue;
+      var v = vals[i];
+      if (v != null && (m === null || v > m)) m = v;
+    }
+    return m;
+  }
+
+  function render(data){
+    var byLoc = {};
+    ORDER.forEach(function(k, i){ byLoc[k] = data.air[i]; });
+    if (!byLoc.athenes || !byLoc.athenes.daily) return;
+
+    var idx = function(loc, day){ return byLoc[loc].daily.time.indexOf(day); };
+
+    // --- 1. une ligne par jour dans le rail ---
+    days.forEach(function(el){
+      var day = el.dataset.date, loc = el.dataset.loc || 'athenes';
+      var d = byLoc[loc] && byLoc[loc].daily;
+      if (!d) return;
+      var i = d.time.indexOf(day);
+      if (i < 0) return;
+
+      var t = Math.round(d.temperature_2m_max[i]);
+      var b = bft(d.wind_speed_10m_max[i]);
+      var code = d.weather_code[i];
+
+      var old = el.querySelector('.wx');
+      if (old) old.remove();
+      var wx = document.createElement('div');
+      wx.className = 'wx';
+      wx.innerHTML = '<b>' + t + '°</b>' + b + ' Bft'
+                   + (code > 2 ? '<span class="cond">' + (CODES[code] || '') + '</span>' : '');
+      el.appendChild(wx);
+
+      // coucher de soleil, glissé parmi les horaires du jour
+      var ul = el.querySelector('ul');
+      if (!ul && el.children[1]){
+        ul = document.createElement('ul');
+        el.children[1].appendChild(ul);
+      }
+      if (ul && !ul.querySelector('.sun')){
+        var li = document.createElement('li');
+        li.className = 'sun';
+        li.innerHTML = '<b>' + hhmm(d.sunset[i]) + '</b>Coucher de soleil';
+        ul.appendChild(li);
+      }
+    });
+
+    // --- 2. verdict mer sur les deux traversées ---
+    var mer = byLoc.mer;
+    document.querySelectorAll('.ferry-slot').forEach(function(slot){
+      var day = slot.dataset.day,
+          h0 = +slot.dataset.h0, h1 = +slot.dataset.h1;
+
+      var w = mer && mer.hourly
+            ? maxBetween(mer.hourly.time, mer.hourly.wind_speed_10m, day, h0, h1) : null;
+      var g = mer && mer.hourly
+            ? maxBetween(mer.hourly.time, mer.hourly.wind_gusts_10m, day, h0, h1) : null;
+      var wave = data.sea && data.sea.hourly
+            ? maxBetween(data.sea.hourly.time, data.sea.hourly.wave_height, day, h0, h1) : null;
+
+      var box = document.createElement('div');
+      box.className = 'sea';
+
+      if (w === null){
+        box.className += ' na';
+        box.innerHTML = '<span class="verdict">Trop loin pour le modèle</span>'
+                      + '<span class="detail">La prévision de vent ne porte pas encore sur cette date.</span>';
+      } else {
+        var b = bft(w), cls, verdict;
+        if (b <= 4)      { cls = 'ok';   verdict = 'Mer maniable'; }
+        else if (b === 5){ cls = 'ok';   verdict = 'Un peu formé, sans conséquence'; }
+        else if (b === 6){ cls = 'warn'; verdict = 'Ça bouge, départ maintenu en principe'; }
+        else if (b === 7){ cls = 'bad';  verdict = 'Zone d’annulation des catamarans'; }
+        else             { cls = 'bad';  verdict = 'Annulation probable'; }
+        box.className += ' ' + cls;
+
+        var det = 'Vent ' + Math.round(w) + ' km/h — force ' + b;
+        if (g) det += ', rafales ' + Math.round(g);
+        if (wave != null) det += ' · creux ' + wave.toFixed(1) + ' m';
+        box.innerHTML = '<span class="verdict">' + verdict + '</span>'
+                      + '<span class="detail">' + det + ' · au large, à mi-parcours</span>';
+      }
+
+      slot.innerHTML = '';
+      slot.appendChild(box);
+    });
+
+    // --- 3. alerte chaleur, reliée à la fiche fermeture de midi ---
+    var heat = document.getElementById('heatSlot');
+    if (heat){
+      heat.innerHTML = '';
+      var chauds = ['2026-08-19','2026-08-20','2026-08-26'].filter(function(day){
+        var i = idx('athenes', day);
+        return i >= 0 && byLoc.athenes.daily.temperature_2m_max[i] >= 37;
+      });
+      if (chauds.length){
+        var lst = chauds.map(function(d){ return d.slice(8,10) + '/08'; });
+        var jours = lst.length > 1
+          ? lst.slice(0,-1).join(', ') + ' et ' + lst[lst.length-1]
+          : lst[0];
+        var tmax = Math.max.apply(null, chauds.map(function(day){
+          return byLoc.athenes.daily.temperature_2m_max[idx('athenes', day)];
+        }));
+        var el = document.createElement('div');
+        el.className = 'heat';
+        el.innerHTML = '<b>Prévision actuelle : ' + Math.round(tmax) + ' °C à Athènes le ' + jours + '.</b> '
+                     + 'Au-delà de 37 °C, la fermeture de midi devient plausible. Viser le créneau de 08:00.';
+        heat.appendChild(el);
+      }
+    }
+
+    // --- 4. onglet Météo ---
+    var body = document.getElementById('meteoBody');
+    if (!body) return;
+
+    var mins = Math.round((Date.now() - data.at) / 60000);
+    var age = mins < 1 ? 'à l’instant'
+            : mins < 60 ? 'il y a ' + mins + ' min'
+            : mins < 1440 ? 'il y a ' + Math.round(mins/60) + ' h'
+            : 'il y a ' + Math.round(mins/1440) + ' j';
+
+    var out = '<div class="wxhead"><span>Mis à jour ' + age + '</span>'
+            + '<button type="button" id="wxr">actualiser</button></div>';
+
+    var JOURS = ['dim','lun','mar','mer','jeu','ven','sam'];
+    var manque = 0;
+
+    days.forEach(function(el){
+      var day = el.dataset.date, loc = el.dataset.loc || 'athenes';
+      var d = byLoc[loc] && byLoc[loc].daily;
+      var i = d ? d.time.indexOf(day) : -1;
+      var lieu = loc === 'naxos' ? 'Naxos' : 'Athènes';
+      var dn = new Date(day + 'T12:00:00');
+      var tete = '<div class="wd"><b>' + day.slice(8,10) + '</b>' + JOURS[dn.getDay()] + '</div>';
+
+      if (i < 0){
+        manque++;
+        out += '<div class="wxrow"><div class="wd"><b>' + day.slice(8,10) + '</b>'
+             + JOURS[dn.getDay()] + '</div><div><div class="wl">' + lieu + '</div>'
+             + '<div class="wc">hors de portée du modèle</div></div><div class="wt"></div></div>';
+        return;
+      }
+
+      var b = bft(d.wind_speed_10m_max[i]);
+      var pluie = d.precipitation_probability_max ? d.precipitation_probability_max[i] : null;
+      var cond = CODES[d.weather_code[i]] || '';
+      var det = cond + ' · vent ' + b + ' Bft';
+      if (b >= 6) det += ' (meltem)';
+      if (pluie != null && pluie >= 30) det += ' · pluie ' + pluie + ' %';
+      det += ' · coucher ' + hhmm(d.sunset[i]);
+
+      out += '<div class="wxrow' + (day === today ? ' today' : '') + '">'
+           + tete
+           + '<div><div class="wl">' + lieu + '</div><div class="wc">' + det + '</div></div>'
+           + '<div class="wt"><b>' + Math.round(d.temperature_2m_max[i]) + '°</b>'
+           + '<span>' + Math.round(d.temperature_2m_min[i]) + '° la nuit</span></div>'
+           + '</div>';
+    });
+
+    // les deux traversées, reprises depuis les cartes de transport
+    var croisieres = [
+      ['Vendredi 21 · Le Pirée → Naxos, 08:30', '2026-08-21'],
+      ['Mardi 25 · Naxos → Le Pirée, 14:50',    '2026-08-25']
+    ];
+    out += '<div class="wxcross"><h4>Les deux traversées</h4>';
+    croisieres.forEach(function(c){
+      var src = document.querySelector('.ferry-slot[data-day="' + c[1] + '"] .sea');
+      out += '<div class="item"><div class="wc" style="margin-bottom:6px">' + c[0] + '</div>'
+           + (src ? src.outerHTML : '<div class="sea na"><span class="verdict">Pas encore de donnée</span></div>')
+           + '</div>';
+    });
+    out += '</div>';
+
+    out += '<p class="wxnote"><strong>Lire le vent.</strong> Jusqu’à force 5 la traversée est normale. '
+         + 'À force 6 ça remue sans que le départ soit menacé. À partir de force 7, SeaJets commence '
+         + 'à suspendre ses catamarans — c’est le seuil à surveiller la veille au soir.</p>'
+         + '<p class="wxnote">Prévisions Open-Meteo, conservées sur l’appareil pour rester lisibles hors ligne. '
+         + 'Au-delà de sept jours, la fiabilité baisse nettement'
+         + (manque ? ' et les derniers jours du séjour ne sont pas encore couverts.' : '.') + '</p>';
+
+    body.innerHTML = out;
+
+    var rb = document.getElementById('wxr');
+    if (rb) rb.addEventListener('click', function(){
+      rb.textContent = '…';
+      fetchAll().then(render).catch(function(){ rb.textContent = 'échec'; });
+    });
+  }
+
+  function echec(){
+    var body = document.getElementById('meteoBody');
+    if (body && !body.querySelector('.wxrow')){
+      body.innerHTML = '<div class="wxempty">Prévisions indisponibles.<br>'
+                     + 'Elles se chargeront à la prochaine connexion.</div>';
+    }
+  }
+
+  var cached = load();
+  if (cached) { try { render(cached); } catch(e){ echec(); } }
+  if (!cached || Date.now() - cached.at > TTL){
+    try { fetchAll().then(render).catch(echec); } catch(e){ echec(); }
+  }
 
   if('serviceWorker' in navigator){
     window.addEventListener('load', function(){
