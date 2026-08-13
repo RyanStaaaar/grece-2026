@@ -1,0 +1,30 @@
+{
+  "name": "Grèce · 19–26 août 2026",
+  "short_name": "Grèce",
+  "description": "Fiche de voyage Athènes et Naxos : programme, hôtels, transports.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0D5EAF",
+  "theme_color": "#0D5EAF",
+  "lang": "fr",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

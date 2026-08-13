@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0D5EAF">
+<meta name="robots" content="noindex, nofollow">
+<title>Grèce · 19–26 août 2026</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Grèce">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --marble:#FFFFFF;        /* le blanc du drapeau */
+  --marble-hi:#EFF5FC;
+  --basalt:#0A2540;        /* encre, bleu très sombre */
+  --basalt-soft:#4C6580;
+  --rule:#C9DAEC;
+  --kitron:#0D5EAF;        /* le bleu du drapeau */
+  --kitron-deep:#084C93;
+  --flag:#0D5EAF;
+  --disp:'Space Grotesk',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --mono:'Space Mono',ui-monospace,'SF Mono',Menlo,monospace;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{
+  margin:0;background:var(--marble);color:var(--basalt);
+  font-family:var(--disp);font-weight:500;line-height:1.45;
+  padding-bottom:calc(28px + env(safe-area-inset-bottom));
+}
+a{color:inherit}
+
+.mast{background:var(--flag);color:#fff;padding:22px 20px 18px;padding-top:calc(22px + env(safe-area-inset-top))}
+.mast h1{margin:0;font-size:31px;line-height:.98;font-weight:700;letter-spacing:-.035em;text-transform:uppercase}
+.mast h1 em{font-style:normal;color:#FFFFFF;opacity:.62}
+.mast .sub{margin-top:9px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#B7D4EE}
+
+/* les neuf bandes du drapeau */
+.stripes{
+  height:18px;
+  background:repeating-linear-gradient(180deg,
+    var(--flag) 0 2px, #fff 2px 4px);
+  border-bottom:1px solid var(--rule);
+}
+
+.status{background:var(--marble-hi);color:var(--basalt);padding:13px 20px;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;border-bottom:2px solid var(--flag)}
+.status .cd{font-family:var(--mono);font-weight:700;font-size:22px;letter-spacing:-.02em;color:var(--flag)}
+.status .cx{font-size:13px;letter-spacing:-.01em}
+
+nav{position:sticky;top:0;z-index:10;background:var(--marble);border-bottom:1px solid var(--rule);display:flex;overflow-x:auto;scrollbar-width:none}
+nav::-webkit-scrollbar{display:none}
+nav a{flex:1 0 auto;text-align:center;padding:12px 16px;font-family:var(--mono);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;text-decoration:none;color:var(--basalt-soft);border-right:1px solid var(--rule);white-space:nowrap}
+nav a:last-child{border-right:0}
+nav a:focus-visible{outline:2px solid var(--kitron-deep);outline-offset:-3px}
+
+section{padding:26px 20px 8px;max-width:660px;margin:0 auto}
+.shead{display:flex;align-items:baseline;gap:12px;margin-bottom:14px}
+.shead h2{margin:0;font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase}
+.shead .line{flex:1;height:1px;background:var(--rule)}
+
+.day{border-top:1px solid var(--rule);padding:14px 0;display:grid;grid-template-columns:52px 1fr;gap:14px}
+.day:last-of-type{border-bottom:1px solid var(--rule)}
+.day .dt{font-family:var(--mono);font-size:11px;line-height:1.3;color:var(--basalt-soft)}
+.day .dt b{display:block;font-size:19px;color:var(--basalt);letter-spacing:-.03em}
+.day .place{font-size:17px;font-weight:700;letter-spacing:-.02em;margin-bottom:3px}
+.day .stay{font-size:12.5px;color:var(--basalt-soft)}
+.day ul{margin:8px 0 0;padding:0;list-style:none}
+.day li{font-family:var(--mono);font-size:12px;color:var(--basalt-soft);display:flex;gap:9px;padding:2px 0}
+.day li b{color:var(--basalt);font-weight:700;flex:0 0 46px}
+.day.now{background:var(--marble-hi);box-shadow:inset 3px 0 0 var(--kitron);padding-left:11px;margin-left:-14px}
+.day.now .place::after{content:'AUJOURD’HUI';font-family:var(--mono);font-size:9px;letter-spacing:.12em;background:var(--flag);color:#fff;padding:2px 5px;margin-left:8px;vertical-align:2px}
+
+.card{background:var(--marble-hi);border:1px solid var(--rule);padding:16px;margin-bottom:12px}
+.card h3{margin:0 0 2px;font-size:18px;font-weight:700;letter-spacing:-.025em}
+.card .tag{font-family:var(--mono);font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--kitron-deep);font-weight:700}
+.card .meta{font-size:13px;color:var(--basalt-soft);margin:7px 0 0}
+.rows{margin-top:12px;border-top:1px solid var(--rule)}
+.row{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:8px 0;border-bottom:1px solid var(--rule);font-family:var(--mono);font-size:12px}
+.row .k{color:var(--basalt-soft);letter-spacing:.06em;text-transform:uppercase;font-size:10px}
+.row .v{font-weight:700;text-align:right}
+.row a.v{text-decoration:none;border-bottom:1.5px solid var(--kitron)}
+
+.leg{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px;margin:10px 0 0}
+.leg .pt{font-family:var(--mono)}
+.leg .pt .h{font-size:20px;font-weight:700;letter-spacing:-.03em;display:block}
+.leg .pt .n{font-size:10.5px;color:var(--basalt-soft);letter-spacing:.08em;text-transform:uppercase}
+.leg .pt.r{text-align:right}
+.leg .mid{font-family:var(--mono);font-size:9px;letter-spacing:.1em;color:var(--basalt-soft);text-align:center;min-width:54px}
+.leg .mid .bar{height:1px;background:var(--rule);margin:4px 0}
+
+/* ---- repères ---- */
+.chips{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:16px}
+.chip{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:7px 12px;border:1px solid var(--rule);background:none;color:var(--basalt-soft);cursor:pointer;font-weight:700}
+.chip[aria-pressed="true"]{background:var(--flag);color:#fff;border-color:var(--flag)}
+.chip:focus-visible{outline:2px solid var(--kitron-deep);outline-offset:2px}
+
+details.rep{border-top:1px solid var(--rule);padding:0}
+details.rep:last-of-type{border-bottom:1px solid var(--rule)}
+details.rep[hidden]{display:none}
+details.rep summary{
+  list-style:none;cursor:pointer;padding:14px 26px 14px 0;position:relative;
+  font-size:16px;font-weight:700;letter-spacing:-.02em;
+}
+details.rep summary::-webkit-details-marker{display:none}
+details.rep summary::after{
+  content:'+';position:absolute;right:2px;top:12px;
+  font-family:var(--mono);font-size:19px;color:var(--kitron-deep);font-weight:700;
+}
+details.rep[open] summary::after{content:'–'}
+details.rep summary:focus-visible{outline:2px solid var(--kitron-deep);outline-offset:-2px}
+details.rep summary .kicker{
+  display:block;font-family:var(--mono);font-size:9.5px;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--basalt-soft);font-weight:400;margin-bottom:4px;
+}
+details.rep .body{padding:0 0 16px;font-size:14px;color:var(--basalt-soft)}
+details.rep .body p{margin:0 0 10px}
+details.rep .body p:last-child{margin-bottom:0}
+details.rep .body strong{color:var(--basalt);font-weight:700}
+details.rep .body ul{margin:0 0 10px;padding-left:18px}
+details.rep .body li{margin-bottom:5px}
+details.rep .body a{color:var(--basalt);text-decoration:none;border-bottom:1.5px solid var(--kitron);font-weight:700}
+.geo{
+  color:var(--basalt);text-decoration:none;
+  border-bottom:1px dotted var(--kitron-deep);
+  white-space:nowrap;
+}
+.geo::after{
+  content:'\00a0◈';font-size:.72em;color:var(--kitron-deep);
+  vertical-align:.08em;
+}
+.geo:focus-visible{outline:2px solid var(--kitron-deep);outline-offset:2px}
+.pin{
+  display:block;border-left:3px solid var(--kitron);background:var(--marble-hi);
+  padding:10px 12px;margin:0 0 10px;font-size:13.5px;color:var(--basalt);
+}
+
+footer{padding:24px 20px;text-align:center;font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#8FA6BC;line-height:1.8}
+@media(min-width:560px){
+  .mast h1{font-size:44px}
+  section{padding-left:24px;padding-right:24px}
+}
+</style>
+</head>
+<body>
+
+<header class="mast">
+  <h1>Grèce<br><em>Athènes · Naxos</em></h1>
+  <div class="sub">19 → 26 août 2026</div>
+</header>
+
+<div class="stripes" aria-hidden="true"></div>
+
+<div class="status">
+  <span class="cd" id="cd">—</span>
+  <span class="cx" id="cx">Chargement</span>
+</div>
+
+<nav>
+  <a href="#jours">Jours</a>
+  <a href="#hotels">Hôtels</a>
+  <a href="#transports">Transports</a>
+  <a href="#reperes">Repères</a>
+</nav>
+
+<section id="jours">
+  <div class="shead"><h2>Le séjour</h2><div class="line"></div></div>
+
+  <div class="day" data-date="2026-08-19">
+    <div class="dt"><b>19</b>mer</div>
+    <div>
+      <div class="place">Athènes</div>
+      <div class="stay">Noma Hotel · 2 nuits</div>
+      <ul>
+        <li><b>11:15</b>Vol Zurich → Athènes</li>
+        <li><b>14:50</b>Atterrissage</li>
+        <li><b>15:00</b>Check-in</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="day" data-date="2026-08-20">
+    <div class="dt"><b>20</b>jeu</div>
+    <div>
+      <div class="place">Athènes</div>
+      <div class="stay">Noma Hotel · journée pleine</div>
+      <ul><li><b>08:00</b>Créneau Acropole conseillé</li></ul>
+    </div>
+  </div>
+
+  <div class="day" data-date="2026-08-21">
+    <div class="dt"><b>21</b>ven</div>
+    <div>
+      <div class="place">Athènes → Naxos</div>
+      <div class="stay">Aesthete Naxos Suites · 4 nuits</div>
+      <ul>
+        <li><b>06:45</b>Taxi pour Le Pirée</li>
+        <li><b>07:30</b>Enregistrement au port</li>
+        <li><b>08:30</b>Ferry</li>
+        <li><b>11:45</b>Arrivée Naxos</li>
+        <li><b>15:00</b>Check-in</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="day" data-date="2026-08-22">
+    <div class="dt"><b>22</b>sam</div>
+    <div><div class="place">Naxos</div><div class="stay">Aesthete Naxos Suites</div></div>
+  </div>
+
+  <div class="day" data-date="2026-08-23">
+    <div class="dt"><b>23</b>dim</div>
+    <div><div class="place">Naxos</div><div class="stay">Aesthete Naxos Suites</div></div>
+  </div>
+
+  <div class="day" data-date="2026-08-24">
+    <div class="dt"><b>24</b>lun</div>
+    <div><div class="place">Naxos</div><div class="stay">Aesthete Naxos Suites</div></div>
+  </div>
+
+  <div class="day" data-date="2026-08-25">
+    <div class="dt"><b>25</b>mar</div>
+    <div>
+      <div class="place">Naxos → Athènes</div>
+      <div class="stay">Asomaton by Oniro · 1 nuit</div>
+      <ul>
+        <li><b>11:00</b>Check-out</li>
+        <li><b>13:50</b>Au port de Naxos</li>
+        <li><b>14:50</b>Ferry</li>
+        <li><b>18:15</b>Arrivée Le Pirée</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="day" data-date="2026-08-26">
+    <div class="dt"><b>26</b>mer</div>
+    <div>
+      <div class="place">Athènes → Zurich</div>
+      <div class="stay">Retour</div>
+      <ul>
+        <li><b>11:00</b>Check-out</li>
+        <li><b>16:15</b>Vol Athènes → Zurich</li>
+        <li><b>18:05</b>Arrivée Zurich</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="hotels">
+  <div class="shead"><h2>Hôtels</h2><div class="line"></div></div>
+
+  <div class="card">
+    <div class="tag">19 → 21 août · 2 nuits</div>
+    <h3>Noma Hotel Athens</h3>
+    <p class="meta">Athinaidos 11, place Agia Irini · centre historique, à 5 min à pied de Monastiraki</p>
+    <div class="rows">
+      <div class="row"><span class="k">Téléphone</span><a class="v" href="tel:+302103239899">+30 210 323 9899</a></div>
+      <div class="row"><span class="k">Adresse</span><a class="v" href="https://maps.google.com/?q=Noma+Hotel+Athinaidos+11+Athens">Ouvrir la carte</a></div>
+      <div class="row"><span class="k">Check-in / out</span><span class="v">15:00 / 11:00</span></div>
+      <div class="row"><span class="k">Réception</span><span class="v">07:00 – 23:00</span></div>
+      <div class="row"><span class="k">Petit-déjeuner</span><span class="v">08:00 – 11:00</span></div>
+      <div class="row"><span class="k">Sur place</span><span class="v">1 € taxe séjour</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="tag">21 → 25 août · 4 nuits</div>
+    <h3>Aesthete Naxos Suites</h3>
+    <p class="meta">Agia Anna, Naxos · 6,3 km de Chora, plage et petit port à pied</p>
+    <div class="rows">
+      <div class="row"><span class="k">Téléphone</span><a class="v" href="tel:+306937138903">+30 693 713 8903</a></div>
+      <div class="row"><span class="k">Adresse</span><a class="v" href="https://maps.google.com/?q=Aesthete+Naxos+Suites+Agia+Anna+Naxos">Ouvrir la carte</a></div>
+      <div class="row"><span class="k">Check-in / out</span><span class="v">15:00 / 11:00</span></div>
+      <div class="row"><span class="k">Bus depuis Chora</span><span class="v">Lignes 1 et 10</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="tag">25 → 26 août · 1 nuit</div>
+    <h3>Asomaton by Oniro</h3>
+    <p class="meta">Agion Asomaton 10, Athènes · lisière Thissio / Psyrri, métro Thissio</p>
+    <div class="rows">
+      <div class="row"><span class="k">Téléphone</span><a class="v" href="tel:+302103318291">+30 210 331 8291</a></div>
+      <div class="row"><span class="k">Adresse</span><a class="v" href="https://maps.google.com/?q=Asomaton+by+Oniro+Agion+Asomaton+10+Athens">Ouvrir la carte</a></div>
+      <div class="row"><span class="k">Check-in / out</span><span class="v">15:00 / 11:00</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="transports">
+  <div class="shead"><h2>Transports</h2><div class="line"></div></div>
+
+  <div class="card">
+    <div class="tag">Mer 19 août · Aegean A3 851</div>
+    <div class="leg">
+      <div class="pt"><span class="h">11:15</span><span class="n">Zurich ZRH</span></div>
+      <div class="mid">2H35<div class="bar"></div>VOL</div>
+      <div class="pt r"><span class="h">14:50</span><span class="n">Athènes ATH</span></div>
+    </div>
+    <p class="meta">Métro ligne 3 depuis l’aéroport, ~40 min jusqu’à Monastiraki. Billet spécial 9 €.</p>
+  </div>
+
+  <div class="card">
+    <div class="tag">Ven 21 août · SeaJets Champions League Jet 1</div>
+    <div class="leg">
+      <div class="pt"><span class="h">08:30</span><span class="n">Le Pirée</span></div>
+      <div class="mid">3H15<div class="bar"></div>FERRY</div>
+      <div class="pt r"><span class="h">11:45</span><span class="n">Naxos</span></div>
+    </div>
+    <p class="meta">Porte E7 en principe, à 5 min du métro. Enregistrement demandé 1 h avant. Voir Repères.</p>
+  </div>
+
+  <div class="card">
+    <div class="tag">Mar 25 août · SeaJets Champions League Jet 1</div>
+    <div class="leg">
+      <div class="pt"><span class="h">14:50</span><span class="n">Naxos</span></div>
+      <div class="mid">3H25<div class="bar"></div>FERRY</div>
+      <div class="pt r"><span class="h">18:15</span><span class="n">Le Pirée</span></div>
+    </div>
+    <p class="meta">Le port de Naxos est à Chora, bus lignes 1 ou 10 depuis Agia Anna, ~20 min.</p>
+  </div>
+
+  <div class="card">
+    <div class="tag">Mer 26 août · Aegean A3 852</div>
+    <div class="leg">
+      <div class="pt"><span class="h">16:15</span><span class="n">Athènes ATH</span></div>
+      <div class="mid">2H50<div class="bar"></div>VOL</div>
+      <div class="pt r"><span class="h">18:05</span><span class="n">Zurich ZRH</span></div>
+    </div>
+    <p class="meta">Métro depuis Monastiraki ou Thissio, changement à Monastiraki pour la ligne 3.</p>
+  </div>
+</section>
+
+<section id="reperes">
+  <div class="shead"><h2>Repères</h2><div class="line"></div></div>
+
+  <div class="chips" role="group" aria-label="Filtrer les repères">
+    <button class="chip" data-filter="all" aria-pressed="true">Tout</button>
+    <button class="chip" data-filter="athenes" aria-pressed="false">Athènes</button>
+    <button class="chip" data-filter="naxos" aria-pressed="false">Naxos</button>
+    <button class="chip" data-filter="pratique" aria-pressed="false">Pratique</button>
+  </div>
+
+  <details class="rep" data-cat="pratique" open>
+    <summary><span class="kicker">Vendredi 21 · le point tendu</span>Le ferry de 8h30</summary>
+    <div class="body">
+      <p class="pin">SeaJets demande l’enregistrement au port <strong>une heure avant le départ</strong> sur les lignes intérieures, et se réserve le droit d’annuler la réservation en cas de retard. Il faut donc être au <a class="geo" href="https://www.google.com/maps/search/?api=1&query=Piraeus%20Port%20Athens" target="_blank" rel="noopener">Pirée</a> à 7h30, pas à 8h15.</p>
+      <p>La réception du Noma ouvre à 07:00. Régler la taxe de séjour et rendre les clés la veille au soir évite d’en dépendre.</p>
+      <ul>
+        <li><strong>Taxi à 06:45</strong> depuis <a class="geo" href="https://www.google.com/maps/search/?api=1&query=Agia%20Irini%20Square%20Athens" target="_blank" rel="noopener">Agia Irini</a> : environ 25 min à cette heure-là, sans circulation, autour de 30 €. Arrivée au port vers 07:10. C’est l’option sûre.</li>
+        <li><strong>Métro ligne 1</strong> depuis <a class="geo" href="https://www.google.com/maps/search/?api=1&query=Monastiraki%20Metro%20Station%20Athens" target="_blank" rel="noopener">Monastiraki</a> : environ 25 min, premières rames vers 05:20, sortie face aux portes E6 et E7. Moins cher, un peu moins prévisible avec les bagages.</li>
+      </ul>
+      <p><strong>La porte.</strong> Le Champions League Jet 1 part en général de la <a class="geo" href="https://www.google.com/maps/search/?api=1&query=Piraeus%20Port%20Gate%20E7" target="_blank" rel="noopener">porte E7</a>, à cinq minutes à pied de la station. SeaJets utilise aussi E9, à dix ou douze minutes. Vérifier le billet et les panneaux électroniques à l’entrée du port.</p>
+      <p>La carte d’embarquement sur le téléphone suffit, aucun besoin d’imprimer.</p>
+    </div>
+  </details>
+
+  <details class="rep" data-cat="athenes">
+    <summary><span class="kicker">Athènes · à réserver avant de partir</span>L’Acropole</summary>
+    <div class="body">
+      <p>Entrée par créneau horaire obligatoire, plafond de 20 000 visiteurs par jour. En août les créneaux du matin et de fin d’après-midi partent cinq à sept jours à l’avance. Site officiel : <a href="https://hhticket.gr">hhticket.gr</a>.</p>
+      <p>Le tarif adulte est annoncé entre 20 et 30 € selon les sources — le prix aurait été unifié à l’année en 2026. À vérifier directement sur le site officiel, les revendeurs facturent une commission.</p>
+      <ul>
+        <li>On peut entrer de 15 min avant à 15 min après l’heure du créneau.</li>
+        <li><strong><a class="geo" href="https://www.google.com/maps/search/?api=1&query=Acropolis%20South%20Entrance%20Dionysiou%20Areopagitou%20Athens" target="_blank" rel="noopener">Entrée sud</a></strong> (Dionysiou Areopagitou / Thrasyllou) nettement moins encombrée que l’entrée principale à l’ouest, où déchargent les cars.</li>
+        <li>Semelles en caoutchouc. Le marbre poli est vraiment glissant, même sec.</li>
+        <li>Les échafaudages du Parthénon ont été retirés, l’édifice est visible en entier pour la première fois depuis des décennies.</li>
+      </ul>
+      <p>Le <a class="geo" href="https://www.google.com/maps/search/?api=1&query=Acropolis%20Museum%20Athens" target="_blank" rel="noopener">musée de l’Acropole</a> est une billetterie séparée, sur son propre site.</p>
+    </div>
+  </details>
+
+  <details class="rep" data-cat="athenes">
+    <summary><span class="kicker">Athènes · le risque de la journée</span>La fermeture de midi</summary>
+    <div class="body">
+      <p class="pin">En cas de canicule, le ministère de la Culture ferme <a class="geo" href="https://www.google.com/maps/search/?api=1&query=Acropolis%20of%20Athens" target="_blank" rel="noopener">l’Acropole</a> et les sites archéologiques <strong>de 12h à 17h</strong>. C’est arrivé en juin et juillet 2024, en juillet 2025, et de nouveau fin juillet 2026.</p>
+      <p>Il n’existe pas de seuil publié : la décision se prend au jour le jour et n’est connue que le matin même. Un créneau à 08:00 met à l’abri de ce risque en plus d’éviter la chaleur.</p>
+      <p>Août à Athènes tourne autour de 34 °C de maximale, et il n’y a aucune ombre sur le rocher. Numéro d’urgence en Grèce : <strong>112</strong>.</p>
+    </div>
+  </details>
+
+  <details class="rep" data-cat="athenes">
+    <summary><span class="kicker">Athènes · plan B climatisé</span>Où passer l’après-midi</summary>
+    <div class="body">
+      <p>Si la chaleur est ingérable ou si les sites ferment, tout se replie à l’intérieur.</p>
+      <ul>
+        <li><strong><a class="geo" href="https://www.google.com/maps/search/?api=1&query=National%20Archaeological%20Museum%20Athens" target="_blank" rel="noopener">Musée archéologique national</a></strong> — le plus grand du pays, ouvert jusqu’à 20:00 en été. C’est le vrai contrepoint à l’Acropole.</li>
+        <li><strong><a class="geo" href="https://www.google.com/maps/search/?api=1&query=Acropolis%20Museum%20Athens" target="_blank" rel="noopener">Musée de l’Acropole</a></strong> — ouvert tard, jusqu’à 22:00 le vendredi. Utile pour comprendre ce qu’on a vu le matin.</li>
+        <li><strong><a class="geo" href="https://www.google.com/maps/search/?api=1&query=Museum%20of%20Cycladic%20Art%20Athens" target="_blank" rel="noopener">Musée d’art cycladique</a></strong> — petit, climatisé, et une bonne mise en bouche avant Naxos.</li>
+        <li><strong><a class="geo" href="https://www.google.com/maps/search/?api=1&query=Stavros%20Niarchos%20Foundation%20Cultural%20Center%20Athens" target="_blank" rel="noopener">Fondation Stavros Niarchos</a></strong> — parc, ombre, vue sur la mer, entrée libre.</li>
+      </ul>
+    </div>
+  </details>
+
+  <details class="rep" data-cat="athenes">
+    <summary><span class="kicker">Athènes · fin de journée</span>Le coucher de soleil</summary>
+    <div class="body">
+      <p><strong><a class="geo" href="https://www.google.com/maps/search/?api=1&query=Filopappou%20Hill%20Athens" target="_blank" rel="noopener">Colline de Philopappou</a></strong> — gratuite, accessible à toute heure, vue frontale sur l’Acropole. Moins fréquentée que <a class="geo" href="https://www.google.com/maps/search/?api=1&query=Areopagus%20Hill%20Athens" target="_blank" rel="noopener">l’Aréopage</a>, dont le rocher est glissant, et que le <a class="geo" href="https://www.google.com/maps/search/?api=1&query=Lycabettus%20Hill%20Athens" target="_blank" rel="noopener">Lycabette</a>. Prévoir la lampe du téléphone : les sentiers du haut perdent la lumière très vite après le coucher.</p>
+      <p>Le parc contient aussi la <strong><a class="geo" href="https://www.google.com/maps/search/?api=1&query=Pnyx%20Athens" target="_blank" rel="noopener">Pnyx</a></strong>, l’endroit précis où l’assemblée athénienne se réunissait et votait à partir du VI<sup>e</sup> siècle av. J.-C. On passe devant sans le savoir.</p>
+      <p>Le Lycabette a un funiculaire qui monte jusque tard le soir, mais la vue y est plus lointaine et la foule plus dense.</p>
+    </div>
+  </details>
+
+  <details class="rep" data-cat="athenes">
+    <summary><span class="kicker">Athènes · autour des deux hôtels</span>Les quartiers</summary>
+    <div class="body">
+      <p><strong><a class="geo" href="https://www.google.com/maps/search/?api=1&query=Agia%20Irini%20Square%20Athens" target="_blank" rel="noopener">Agia Irini</a></strong> (nuits du 19 et 20). La place est un des points de rendez-vous des Athéniens : cafés, bars et restaurants tout autour de l’église, terrasses sur le trottoir, ambiance jusque tard. La rue Aiolou qui y mène est piétonne. <a class="geo" href="https://www.google.com/maps/search/?api=1&query=Monastiraki%20Square%20Athens" target="_blank" rel="noopener">Monastiraki</a>, <a class="geo" href="https://www.google.com/maps/search/?api=1&query=Ancient%20Agora%20of%20Athens" target="_blank" rel="noopener">l’Agora antique</a> et <a class="geo" href="https://www.google.com/maps/search/?api=1&query=Psyrri%20Athens" target="_blank" rel="noopener">Psyrri</a> sont à quelques minutes à pied.</p>
+      <p><strong><a class="geo" href="https://www.google.com/maps/search/?api=1&query=Agion%20Asomaton%20Street%20Athens" target="_blank" rel="noopener">Agion Asomaton</a></strong> (dernière nuit). En lisière de Thissio et de Psyrri, station de métro Thissio, à côté du site de <a class="geo" href="https://www.google.com/maps/search/?api=1&query=Kerameikos%20Archaeological%20Site%20Athens" target="_blank" rel="noopener">Kerameikos</a>. La promenade piétonne <a class="geo" href="https://www.google.com/maps/search/?api=1&query=Apostolou%20Pavlou%20Street%20Thissio%20Athens" target="_blank" rel="noopener">Apostolou Pavlou</a> longe le pied de l’Acropole — c’est la plus belle marche du soir à Athènes, et elle part de là. Le cinéma en plein air <a class="geo" href="https://www.google.com/maps/search/?api=1&query=Cine%20Thision%20Athens" target="_blank" rel="noopener">Ciné Thision</a> s’y trouve, avec l’Acropole en arrière-plan de l’écran : séances vers 21h en été, à confirmer sur place.</p>
+      <p>Le ferry arrive au Pirée à 18:15 le 25. En comptant le métro, on est posés vers 19h15 — largement de quoi faire de cette dernière soirée quelque chose.</p>
+    </div>
+  </details>
+
+  <details class="rep" data-cat="naxos">
+    <summary><span class="kicker">Naxos · se déplacer</span>Bus, voiture, taxi</summary>
+    <div class="body">
+      <p><strong>Bus KTEL.</strong> Le <a class="geo" href="https://www.google.com/maps/search/?api=1&query=Naxos%20Bus%20Station%20Chora" target="_blank" rel="noopener">terminal</a> est au port de Chora, juste à côté de la <a class="geo" href="https://www.google.com/maps/search/?api=1&query=Portara%20Naxos" target="_blank" rel="noopener">Portara</a>. Les lignes <strong>1 et 10</strong> desservent <a class="geo" href="https://www.google.com/maps/search/?api=1&query=Agia%20Anna%20Naxos" target="_blank" rel="noopener">Agia Anna</a>, 17 à 26 min, environ toutes les 30 min en été. Trois arrêts dans le village.</p>
+      <p class="pin">Les billets <strong>ne se vendent pas à bord</strong>. Il faut les prendre au guichet ou au kiosque avant de monter.</p>
+      <p><strong>Voiture.</strong> Indispensable pour l’intérieur de l’île, compter 35 à 50 € par jour. À réserver avant, fin août tout part. Les taxis sont chers et peu nombreux.</p>
+      <p>Un détail qui évite une mauvaise surprise : suivre les panneaux routiers plutôt que Google Maps, qui envoie régulièrement sur des pistes en mauvais état.</p>
+    </div>
+  </details>
+
+  <details class="rep" data-cat="naxos">
+    <summary><span class="kicker">Naxos · l’atout du logement</span>Le port d’Agia Anna</summary>
+    <div class="body">
+      <p>Le village a son propre <a class="geo" href="https://www.google.com/maps/search/?api=1&query=Agia%20Anna%20Port%20Naxos" target="_blank" rel="noopener">petit port</a>, à pied depuis l’hôtel. C’est de là que partent les excursions en bateau vers les <strong>Petites Cyclades</strong> — <a class="geo" href="https://www.google.com/maps/search/?api=1&query=Koufonisia%20Greece" target="_blank" rel="noopener">Koufonissia</a>, <a class="geo" href="https://www.google.com/maps/search/?api=1&query=Schinoussa%20Greece" target="_blank" rel="noopener">Schinoussa</a>, <a class="geo" href="https://www.google.com/maps/search/?api=1&query=Iraklia%20Greece" target="_blank" rel="noopener">Iraklia</a> — et vers la <strong><a class="geo" href="https://www.google.com/maps/search/?api=1&query=Rina%20Cave%20Naxos" target="_blank" rel="noopener">grotte de Rina</a></strong>, avec arrêts baignade.</p>
+      <p>Aucun transfert à organiser, aucun trajet vers Chora. C’est probablement la meilleure journée à programmer sur les quatre, et celle qui se réserve la veille sur place.</p>
+      <p>Les criques abritées près de la chapelle, au bout du port, sont bonnes pour le masque et tuba.</p>
+    </div>
+  </details>
+
+  <details class="rep" data-cat="naxos">
+    <summary><span class="kicker">Naxos · à pied depuis l’hôtel</span>Les plages</summary>
+    <div class="body">
+      <p>La côte ouest est une seule longue plage découpée en tronçons. Depuis Agia Anna, tout se fait à pied le long du sable.</p>
+      <ul>
+        <li><strong><a class="geo" href="https://www.google.com/maps/search/?api=1&query=Agios%20Prokopios%20Beach%20Naxos" target="_blank" rel="noopener">Agios Prokopios</a></strong>, un kilomètre au nord — plus animée, bien équipée, bars de plage.</li>
+        <li><strong><a class="geo" href="https://www.google.com/maps/search/?api=1&query=Maragas%20Beach%20Naxos" target="_blank" rel="noopener">Maragas</a> puis <a class="geo" href="https://www.google.com/maps/search/?api=1&query=Plaka%20Beach%20Naxos" target="_blank" rel="noopener">Plaka</a></strong>, au sud — Plaka est la grande, quatre kilomètres de sable fin, peu de béton.</li>
+      </ul>
+      <p>Deux choses utiles. Agia Anna est <strong>abritée des vents du nord</strong>, ce qui compte les jours de meltem. Et en pleine saison, les transats sont pris passé 11h : y être tôt ou renoncer.</p>
+    </div>
+  </details>
+
+  <details class="rep" data-cat="naxos">
+    <summary><span class="kicker">Naxos · la journée voiture</span>L’intérieur</summary>
+    <div class="body">
+      <p>Un itinéraire qui tient dans une journée, en boucle depuis Chora :</p>
+      <ul>
+        <li><strong><a class="geo" href="https://www.google.com/maps/search/?api=1&query=Kouros%20of%20Flerio%20Melanes%20Naxos" target="_blank" rel="noopener">Kouroi de Melanes</a></strong> — deux statues inachevées, dont une de 6,5 m, laissées sur place dans les oliveraies. Dix à quinze minutes de marche.</li>
+        <li>Route de montagne par <a class="geo" href="https://www.google.com/maps/search/?api=1&query=Kinidaros%20Naxos" target="_blank" rel="noopener">Kinidaros</a> et <a class="geo" href="https://www.google.com/maps/search/?api=1&query=Koronos%20Naxos" target="_blank" rel="noopener">Koronos</a>, puis <strong><a class="geo" href="https://www.google.com/maps/search/?api=1&query=Apeiranthos%20Naxos" target="_blank" rel="noopener">Apeiranthos</a></strong>, le village de marbre, ruelles pavées, cinq petits musées.</li>
+        <li><strong><a class="geo" href="https://www.google.com/maps/search/?api=1&query=Filoti%20Naxos" target="_blank" rel="noopener">Filoti</a></strong>, au pied du Zas, puis <strong><a class="geo" href="https://www.google.com/maps/search/?api=1&query=Halki%20Naxos" target="_blank" rel="noopener">Halki</a></strong> et la <a class="geo" href="https://www.google.com/maps/search/?api=1&query=Vallindras%20Kitron%20Distillery%20Halki%20Naxos" target="_blank" rel="noopener">distillerie Vallindras</a>, où se fait le kitron, la liqueur de cédrat de l’île.</li>
+        <li>Retour par la <a class="geo" href="https://www.google.com/maps/search/?api=1&query=Plaka%20Beach%20Naxos" target="_blank" rel="noopener">plage de Plaka</a> pour la fin d’après-midi.</li>
+      </ul>
+      <p><strong><a class="geo" href="https://www.google.com/maps/search/?api=1&query=Temple%20of%20Demeter%20Sangri%20Naxos" target="_blank" rel="noopener">Temple de Déméter</a></strong>, près de <a class="geo" href="https://www.google.com/maps/search/?api=1&query=Ano%20Sangri%20Naxos" target="_blank" rel="noopener">Sangri</a> : 530 av. J.-C., entièrement en marbre blanc, au milieu des oliviers et des vignes. Un des tout premiers exemples d’architecture classique. Meilleure lumière le matin ou en fin de journée.</p>
+      <p>Le <strong><a class="geo" href="https://www.google.com/maps/search/?api=1&query=Kouros%20of%20Apollonas%20Naxos" target="_blank" rel="noopener">kouros d’Apollonas</a></strong>, au nord, fait 10,7 m et gît toujours dans sa carrière, abandonné en cours de taille. C’est loin (une heure de route) mais c’est le plus spectaculaire.</p>
+    </div>
+  </details>
+
+  <details class="rep" data-cat="naxos">
+    <summary><span class="kicker">Naxos · si l’envie de marcher</span>Le mont Zas</summary>
+    <div class="body">
+      <p>1 004 m, le point culminant des Cyclades. Départ de <a class="geo" href="https://www.google.com/maps/search/?api=1&query=Filoti%20Naxos" target="_blank" rel="noopener">Filoti</a>, environ trois heures aller-retour. La <a class="geo" href="https://www.google.com/maps/search/?api=1&query=Cave%20of%20Zeus%20Naxos" target="_blank" rel="noopener">grotte où Zeus aurait été élevé</a> se trouve à mi-parcours.</p>
+      <p>En août, c’est une randonnée de très tôt le matin, pas d’autre créneau. Beaucoup d’eau, chapeau, et pas de sandales.</p>
+      <p>Plus court et plus ombragé : la <a class="geo" href="https://www.google.com/maps/search/?api=1&query=Tragaia%20Valley%20Naxos" target="_blank" rel="noopener">vallée de Tragaia</a> entre les villages, ou la marche entre les trois hameaux de <a class="geo" href="https://www.google.com/maps/search/?api=1&query=Potamia%20Naxos" target="_blank" rel="noopener">Potamia</a>.</p>
+    </div>
+  </details>
+
+  <details class="rep" data-cat="pratique">
+    <summary><span class="kicker">Pratique · le vent</span>Le meltem</summary>
+    <div class="body">
+      <p>Vent du nord qui souffle sur l’Égée de juin à septembre, le plus fort en juillet et août. Il rend les Cyclades nettement plus vivables que le continent — 28 à 30 °C contre 34 et plus à Athènes.</p>
+      <p>La contrepartie est maritime. Les catamarans rapides sont les premiers touchés : SeaJets suspend en général autour de force 7 à 8, alors que les gros ferries conventionnels tiennent jusqu’à 8 ou 9. Les départs du matin sont plus fiables que ceux de l’après-midi.</p>
+      <p class="pin">Le retour du 25 est à 14:50, avec le vol le lendemain à 16:15. Cette nuit à Athènes est le vrai filet de sécurité du voyage : même en cas d’annulation, il reste une marge.</p>
+      <p>Si la mer est formée, pastilles contre le mal de mer en pharmacie avant d’embarquer, et place au centre du bateau plutôt qu’à l’étage.</p>
+    </div>
+  </details>
+
+  <details class="rep" data-cat="pratique">
+    <summary><span class="kicker">Pratique · Athènes</span>Métro et billets</summary>
+    <div class="body">
+      <ul>
+        <li>Billet unique <strong>1,20 €</strong>, valable 90 min sur métro, bus, tram et trolley, correspondances comprises.</li>
+        <li>Pass journée 4,10 €. Pass 3 jours 20 €, avec un aller-retour aéroport inclus.</li>
+        <li><strong>Aéroport : billet spécial à 9 €.</strong> Un billet ordinaire n’est pas valable sur cette section, même avec un pass.</li>
+      </ul>
+      <p><strong>Tap2Ride.</strong> On peut payer en approchant directement une carte Visa ou Mastercard, physique ou dans le téléphone, aux valideurs. Plafond automatique à 4,10 € par jour. Utiliser la même carte pour tout le trajet, correspondances comprises, sinon on est débité plusieurs fois. Maestro et Amex ne sont pas acceptées.</p>
+      <p><strong>Travaux ligne 3.</strong> Du dimanche au jeudi, les stations Syntagma (ligne 3), Evangelismos et Megaro Moussikis ferment à 21h40, et un bus X23 assure le relais entre Monastiraki et Ambelokipi. Le dernier direct Syntagma → aéroport part à 21h31. Sans effet sur nos trajets, qui sont tous en journée.</p>
+    </div>
+  </details>
+
+  <details class="rep" data-cat="pratique">
+    <summary><span class="kicker">Pratique · avant de partir</span>La liste courte</summary>
+    <div class="body">
+      <ul>
+        <li>Créneau Acropole réservé sur hhticket.gr.</li>
+        <li>Voiture réservée à Naxos si on fait l’intérieur.</li>
+        <li>Enregistrement Aegean en ligne, ouvre 48 h avant chaque vol.</li>
+        <li>Cartes d’embarquement, billets de ferry et confirmations d’hôtel enregistrés hors ligne sur le téléphone.</li>
+        <li>Cartes de Naxos et d’Athènes téléchargées hors ligne.</li>
+        <li>Carte européenne d’assurance maladie, au dos de la carte d’assurance.</li>
+        <li>Taxi du vendredi matin commandé la veille.</li>
+      </ul>
+      <p>La Suisse étant dans Schengen, aucun contrôle frontalier à l’arrivée à Athènes. La carte d’identité suffit.</p>
+    </div>
+  </details>
+</section>
+
+<footer>
+  Fiche de voyage · août 2026<br>
+  Numéros de réservation volontairement absents
+</footer>
+
+<script>
+(function(){
+  var days = [].slice.call(document.querySelectorAll('.day'));
+  var trip = days.map(function(d){ return d.dataset.date; });
+  var start = new Date('2026-08-19T00:00:00');
+  var end   = new Date('2026-08-26T23:59:59');
+  var now   = new Date();
+  var pad   = function(n){ return String(n).padStart(2,'0'); };
+  var today = now.getFullYear()+'-'+pad(now.getMonth()+1)+'-'+pad(now.getDate());
+
+  var cd = document.getElementById('cd');
+  var cx = document.getElementById('cx');
+
+  if(now < start){
+    var d = Math.ceil((start - now)/86400000);
+    cd.textContent = 'J−'+d;
+    cx.textContent = d === 1 ? 'Départ demain · vol à 11:15 depuis Zurich'
+                             : 'avant le départ · vol le 19 août à 11:15';
+  } else if(now > end){
+    cd.textContent = '✓';
+    cx.textContent = 'Séjour terminé';
+  } else {
+    var i = trip.indexOf(today);
+    cd.textContent = 'Jour '+(i+1);
+    var active = days[i];
+    if(active){
+      active.classList.add('now');
+      cx.textContent = active.querySelector('.place').textContent;
+      setTimeout(function(){
+        active.scrollIntoView({block:'center', behavior:'smooth'});
+      }, 400);
+    }
+  }
+
+  // Filtre des repères
+  var chips = [].slice.call(document.querySelectorAll('.chip'));
+  var reps  = [].slice.call(document.querySelectorAll('details.rep'));
+  chips.forEach(function(c){
+    c.addEventListener('click', function(){
+      var f = c.dataset.filter;
+      chips.forEach(function(o){ o.setAttribute('aria-pressed', o === c ? 'true' : 'false'); });
+      reps.forEach(function(r){
+        r.hidden = !(f === 'all' || r.dataset.cat === f);
+      });
+    });
+  });
+
+  if('serviceWorker' in navigator){
+    window.addEventListener('load', function(){
+      navigator.serviceWorker.register('sw.js').catch(function(){});
+    });
+  }
+})();
+</script>
+</body>
+</html>
