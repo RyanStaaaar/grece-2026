@@ -1,4 +1,4 @@
-const CACHE = 'grece-2026-v5';
+const CACHE = 'grece-2026-v7';
 
 const CORE = [
   './',

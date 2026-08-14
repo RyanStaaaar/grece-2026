@@ -109,10 +109,20 @@ section{padding:26px 20px 8px;max-width:660px;margin:0 auto}
 .wxhead button:focus-visible{outline:2px solid var(--flag);outline-offset:2px}
 
 .wxrow{
-  border-top:1px solid var(--rule);padding:12px 0;
-  display:grid;grid-template-columns:46px 1fr auto;gap:12px;align-items:center;
+  border-top:1px solid var(--rule);
 }
 .wxrow:last-of-type{border-bottom:1px solid var(--rule)}
+.wxrow>summary{
+  list-style:none;cursor:pointer;padding:12px 0;
+  display:grid;grid-template-columns:46px 1fr auto 15px;gap:12px;align-items:center;
+}
+.wxrow>summary::-webkit-details-marker{display:none}
+.wxrow>summary::after{
+  content:'+';font-family:var(--mono);font-size:16px;font-weight:700;
+  color:var(--flag);text-align:right;
+}
+.wxrow[open]>summary::after{content:'–'}
+.wxrow>summary:focus-visible{outline:2px solid var(--flag);outline-offset:-2px}
 .wxrow .wd{font-family:var(--mono);font-size:10.5px;color:var(--basalt-soft);line-height:1.25}
 .wxrow .wd b{display:block;font-size:17px;color:var(--basalt);letter-spacing:-.03em}
 .wxrow .wl{font-size:14px;font-weight:700;letter-spacing:-.02em}
@@ -121,6 +131,37 @@ section{padding:26px 20px 8px;max-width:660px;margin:0 auto}
 .wxrow .wt b{font-size:19px;letter-spacing:-.03em}
 .wxrow .wt span{display:block;font-size:10px;color:var(--basalt-soft)}
 .wxrow.today{background:var(--marble-hi);box-shadow:inset 3px 0 0 var(--flag);padding-left:11px;margin-left:-14px}
+
+/* détail d'une journée */
+.wxdet{padding:2px 0 16px}
+.wxdet .sparkwrap{position:relative;margin-bottom:2px}
+.wxdet .spark{width:100%;height:64px;display:block}
+.wxdet .lmax,.wxdet .lmin{
+  position:absolute;left:1px;font-family:var(--mono);font-size:9.5px;
+  color:var(--basalt-soft);background:rgba(255,255,255,.82);padding:0 2px;
+  letter-spacing:-.02em;
+}
+.wxdet .lmax{top:-1px}
+.wxdet .lmin{bottom:-1px}
+.wxdet .axis{
+  display:flex;justify-content:space-between;
+  font-family:var(--mono);font-size:9px;letter-spacing:.04em;
+  color:var(--basalt-soft);margin-bottom:10px;
+}
+.wxdet .hours{
+  display:grid;grid-template-columns:repeat(6,1fr);gap:4px;
+  font-family:var(--mono);font-size:10px;text-align:center;color:var(--basalt-soft);
+  border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:9px 0;
+}
+.wxdet .hours b{display:block;font-size:13px;color:var(--basalt);letter-spacing:-.02em;margin:2px 0}
+.wxdet .hours .hh{font-size:9px;letter-spacing:.06em}
+.wxdet .facts{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(104px,1fr));gap:9px;margin-top:11px;
+  font-family:var(--mono);font-size:11px;
+}
+.wxdet .facts div span{display:block;font-size:9px;letter-spacing:.09em;text-transform:uppercase;color:var(--basalt-soft)}
+.wxdet .facts div b{font-size:13px;letter-spacing:-.02em}
+.wxdet .tip{font-size:12.5px;color:var(--basalt-soft);margin:11px 0 0;font-family:var(--disp)}
 
 .wxnote{font-size:13px;color:var(--basalt-soft);margin:16px 0 0}
 .wxnote strong{color:var(--basalt)}
@@ -642,7 +683,8 @@ footer{padding:24px 20px;text-align:center;font-family:var(--mono);font-size:10p
   var PTS = {
     athenes: [37.9838, 23.7275],
     naxos:   [37.1036, 25.3765],
-    mer:     [37.4500, 24.5500]
+    mer:     [37.4500, 24.5500],   // à mi-parcours, au large
+    cote:    [37.0800, 25.3500]    // au large d'Agia Anna, pour l'eau
   };
   var ORDER = ['athenes','naxos','mer'];
   var KEY = 'grece-wx-v1';
@@ -669,13 +711,15 @@ footer{padding:24px 20px;text-align:center;font-family:var(--mono);font-size:10p
     return {
       air: 'https://api.open-meteo.com/v1/forecast'
          + '?latitude=' + la + '&longitude=' + lo
-         + '&daily=weather_code,temperature_2m_max,temperature_2m_min,'
-         + 'wind_speed_10m_max,wind_gusts_10m_max,precipitation_probability_max,sunset'
-         + '&hourly=wind_speed_10m,wind_gusts_10m'
+         + '&daily=weather_code,temperature_2m_max,temperature_2m_min,apparent_temperature_max,'
+         + 'wind_speed_10m_max,wind_gusts_10m_max,wind_direction_10m_dominant,'
+         + 'precipitation_probability_max,uv_index_max,sunrise,sunset'
+         + '&hourly=temperature_2m,weather_code,wind_speed_10m,wind_gusts_10m'
          + '&timezone=Europe%2FAthens&forecast_days=16',
       sea: 'https://marine-api.open-meteo.com/v1/marine'
-         + '?latitude=' + PTS.mer[0] + '&longitude=' + PTS.mer[1]
-         + '&hourly=wave_height&timezone=Europe%2FAthens'
+         + '?latitude=' + PTS.mer[0] + ',' + PTS.cote[0]
+         + '&longitude=' + PTS.mer[1] + ',' + PTS.cote[1]
+         + '&hourly=wave_height,sea_surface_temperature&timezone=Europe%2FAthens'
     };
   }
 
@@ -690,7 +734,9 @@ footer{padding:24px 20px;text-align:center;font-family:var(--mono);font-size:10p
     var air = fetch(u.air).then(function(r){ return r.json(); });
     var sea = fetch(u.sea).then(function(r){ return r.json(); }).catch(function(){ return null; });
     return Promise.all([air, sea]).then(function(res){
-      var data = { at: Date.now(), air: Array.isArray(res[0]) ? res[0] : [res[0]], sea: res[1] };
+      var sea = res[1];
+      if (sea && !Array.isArray(sea)) sea = [sea];
+      var data = { at: Date.now(), air: Array.isArray(res[0]) ? res[0] : [res[0]], sea: sea };
       try { localStorage.setItem(KEY, JSON.stringify(data)); } catch(e){}
       return data;
     });
@@ -759,8 +805,8 @@ footer{padding:24px 20px;text-align:center;font-family:var(--mono);font-size:10p
             ? maxBetween(mer.hourly.time, mer.hourly.wind_speed_10m, day, h0, h1) : null;
       var g = mer && mer.hourly
             ? maxBetween(mer.hourly.time, mer.hourly.wind_gusts_10m, day, h0, h1) : null;
-      var wave = data.sea && data.sea.hourly
-            ? maxBetween(data.sea.hourly.time, data.sea.hourly.wave_height, day, h0, h1) : null;
+      var sm = data.sea && data.sea[0] ? data.sea[0].hourly : null;
+      var wave = sm ? maxBetween(sm.time, sm.wave_height, day, h0, h1) : null;
 
       var box = document.createElement('div');
       box.className = 'sea';
@@ -827,7 +873,106 @@ footer{padding:24px 20px;text-align:center;font-family:var(--mono);font-size:10p
             + '<button type="button" id="wxr">actualiser</button></div>';
 
     var JOURS = ['dim','lun','mar','mer','jeu','ven','sam'];
+    var ROSE = ['N','NNE','NE','ENE','E','ESE','SE','SSE','S','SSO','SO','OSO','O','ONO','NO','NNO'];
     var manque = 0;
+
+    function cardinal(deg){ return ROSE[Math.round(deg / 22.5) % 16]; }
+
+    // valeurs horaires d'une journée, pour une série donnée
+    function jour(hy, serie, day){
+      var out = [];
+      for (var i = 0; i < hy.time.length; i++){
+        if (hy.time[i].slice(0,10) === day) out.push(hy[serie][i]);
+      }
+      return out;
+    }
+
+    // courbe de température sur 24 h, nuit ombrée.
+    // Le SVG ne contient que des tracés : tout le texte reste en HTML,
+    // sinon l'étirement horizontal déforme les caractères.
+    function courbe(temps, leverH, coucherH){
+      var W = 320, H = 64, PT = 8, PB = 8;
+      var lo = Math.min.apply(null, temps), hi = Math.max.apply(null, temps);
+      if (hi - lo < 4){ hi = lo + 4; }
+      var x = function(i){ return i * W / 23; };
+      var y = function(v){ return PT + (hi - v) * (H - PT - PB) / (hi - lo); };
+      var pts = temps.map(function(v,i){ return x(i).toFixed(1) + ',' + y(v).toFixed(1); }).join(' ');
+
+      var s = '<div class="sparkwrap">';
+      s += '<svg class="spark" viewBox="0 0 ' + W + ' ' + H + '" preserveAspectRatio="none" aria-hidden="true">';
+      s += '<rect x="0" y="0" width="' + x(leverH).toFixed(1) + '" height="' + H + '" fill="var(--marble-hi)"/>';
+      s += '<rect x="' + x(coucherH).toFixed(1) + '" y="0" width="' + (W - x(coucherH)).toFixed(1) + '" height="' + H + '" fill="var(--marble-hi)"/>';
+      s += '<polyline points="' + pts + '" fill="none" stroke="var(--flag)" stroke-width="2" '
+         + 'vector-effect="non-scaling-stroke" stroke-linejoin="round" stroke-linecap="round"/>';
+      s += '</svg>';
+      s += '<span class="lmax">' + Math.round(hi) + '°</span>';
+      s += '<span class="lmin">' + Math.round(lo) + '°</span>';
+      s += '</div>';
+      s += '<div class="axis"><span>00h</span><span>06h</span><span>12h</span><span>18h</span><span>23h</span></div>';
+      return s;
+    }
+
+    function detail(loc, day, i){
+      var d = byLoc[loc].daily, hy = byLoc[loc].hourly;
+      var out = '<div class="wxdet">';
+
+      var temps = hy ? jour(hy, 'temperature_2m', day) : [];
+      var vents = hy ? jour(hy, 'wind_speed_10m', day) : [];
+      var codes = hy ? jour(hy, 'weather_code', day) : [];
+
+      var leverH  = d.sunrise ? parseInt(d.sunrise[i].slice(11,13),10) : 6;
+      var coucher = parseInt(d.sunset[i].slice(11,13),10);
+
+      if (temps.length === 24) out += courbe(temps, leverH, coucher);
+
+      if (temps.length === 24){
+        out += '<div class="hours">';
+        [7,10,13,16,19,22].forEach(function(hh){
+          out += '<div><span class="hh">' + (hh<10?'0':'') + hh + 'h</span>'
+               + '<b>' + Math.round(temps[hh]) + '°</b>'
+               + bft(vents[hh]) + ' Bft</div>';
+        });
+        out += '</div>';
+      }
+
+      out += '<div class="facts">';
+      var f = function(k, v){ return '<div><span>' + k + '</span><b>' + v + '</b></div>'; };
+      out += f('Lever', d.sunrise ? hhmm(d.sunrise[i]) : '—');
+      out += f('Coucher', hhmm(d.sunset[i]));
+      if (d.apparent_temperature_max) out += f('Ressenti max', Math.round(d.apparent_temperature_max[i]) + '°');
+      if (d.uv_index_max)             out += f('UV max', Math.round(d.uv_index_max[i]));
+      if (d.wind_gusts_10m_max)       out += f('Rafales', Math.round(d.wind_gusts_10m_max[i]) + ' km/h');
+      if (d.wind_direction_10m_dominant) out += f('Vent de', cardinal(d.wind_direction_10m_dominant[i]));
+      if (d.precipitation_probability_max) out += f('Pluie', d.precipitation_probability_max[i] + ' %');
+
+      // température de l'eau, seulement pour les journées à Naxos
+      var cote = data.sea && data.sea[1] ? data.sea[1].hourly : null;
+      if (loc === 'naxos' && cote && cote.sea_surface_temperature){
+        var eau = maxBetween(cote.time, cote.sea_surface_temperature, day, 10, 18);
+        if (eau != null) out += f('Mer', Math.round(eau) + '°');
+      }
+      out += '</div>';
+
+      // une phrase qui sert vraiment
+      var tip = '';
+      var dir = d.wind_direction_10m_dominant ? d.wind_direction_10m_dominant[i] : null;
+      var b = bft(d.wind_speed_10m_max[i]);
+      var nord = dir != null && (dir >= 315 || dir <= 45);
+      if (b >= 6 && nord && loc === 'naxos')
+        tip = 'Meltem installé. Agia Anna est abritée du nord, les plages de la côte ouest restent praticables.';
+      else if (b >= 6 && loc === 'naxos')
+        tip = 'Vent soutenu mais pas du nord : ce n’est pas le meltem classique.';
+      else if (d.uv_index_max && d.uv_index_max[i] >= 9)
+        tip = 'UV très fort. Éviter l’exposition directe entre 12h et 16h.';
+      else if (loc === 'athenes' && d.temperature_2m_max[i] >= 37)
+        tip = 'Journée lourde à Athènes. Les sites archéologiques peuvent fermer de 12h à 17h.';
+      else if (d.precipitation_probability_max && d.precipitation_probability_max[i] >= 50)
+        tip = 'Averses probables. En août dans les Cyclades, elles sont brèves.';
+      if (tip) out += '<p class="tip">' + tip + '</p>';
+
+      out += '</div>';
+      return out;
+    }
 
     days.forEach(function(el){
       var day = el.dataset.date, loc = el.dataset.loc || 'athenes';
@@ -839,9 +984,12 @@ footer{padding:24px 20px;text-align:center;font-family:var(--mono);font-size:10p
 
       if (i < 0){
         manque++;
-        out += '<div class="wxrow"><div class="wd"><b>' + day.slice(8,10) + '</b>'
-             + JOURS[dn.getDay()] + '</div><div><div class="wl">' + lieu + '</div>'
-             + '<div class="wc">hors de portée du modèle</div></div><div class="wt"></div></div>';
+        out += '<details class="wxrow"><summary>' + tete
+             + '<div><div class="wl">' + lieu + '</div>'
+             + '<div class="wc">hors de portée du modèle</div></div>'
+             + '<div class="wt"></div></summary>'
+             + '<div class="wxdet"><p class="tip">Les prévisions ne portent pas encore sur cette date. '
+             + 'Revenir dans quelques jours.</p></div></details>';
         return;
       }
 
@@ -853,12 +1001,12 @@ footer{padding:24px 20px;text-align:center;font-family:var(--mono);font-size:10p
       if (pluie != null && pluie >= 30) det += ' · pluie ' + pluie + ' %';
       det += ' · coucher ' + hhmm(d.sunset[i]);
 
-      out += '<div class="wxrow' + (day === today ? ' today' : '') + '">'
+      out += '<details class="wxrow' + (day === today ? ' today' : '') + '"><summary>'
            + tete
            + '<div><div class="wl">' + lieu + '</div><div class="wc">' + det + '</div></div>'
            + '<div class="wt"><b>' + Math.round(d.temperature_2m_max[i]) + '°</b>'
            + '<span>' + Math.round(d.temperature_2m_min[i]) + '° la nuit</span></div>'
-           + '</div>';
+           + '</summary>' + detail(loc, day, i) + '</details>';
     });
 
     // les deux traversées, reprises depuis les cartes de transport
